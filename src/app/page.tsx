@@ -314,10 +314,10 @@ export default function Home() {
         </div>
 
         {/* Registration Info */}
-        <div className="mb-6 bg-gray-50 border border-gray-200 rounded-sm p-4 text-sm text-gray-900 leading-relaxed space-y-2 text-center font-bold">
-          <p>נרשמתם? קודם תקבלו מייל קטן שמאשר שקיבלנו את ההרשמה 😉</p>
+        <div className="mb-6 bg-gray-50 border border-gray-200 rounded-sm p-4 text-sm text-gray-900 leading-relaxed space-y-2 text-center">
+          <p><span className="font-bold">נרשמתם?</span> קודם תקבלו מייל קטן שמאשר שקיבלנו את ההרשמה 😉</p>
           <p>לאחר אישור המארגנים, יישלח מייל נוסף עם ברקוד - וזה הכרטיס שלכם למסיבה.</p>
-          <p>עדיין מתלבטים? הכל טוב, חכו רגע עם ההרשמה.<br />מבחינתנו מי שנרשם, מגיע - ומספר המקומות מוגבל.</p>
+          <p><span className="font-bold">עדיין מתלבטים?</span> הכל טוב, חכו רגע עם ההרשמה.<br />מבחינתנו מי שנרשם, מגיע - ומספר המקומות מוגבל.</p>
         </div>
 
         {/* Form */}
