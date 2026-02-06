@@ -25,6 +25,8 @@ export default function AdminPage() {
   const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all')
   const [loading, setLoading] = useState(true)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
+  const [editingGuest, setEditingGuest] = useState<string | null>(null)
+  const [confirmDialog, setConfirmDialog] = useState<{ guestId: string; guestName: string; action: 'approve' | 'reject' } | null>(null)
 
   useEffect(() => {
     checkAuth()
@@ -284,8 +286,8 @@ export default function AdminPage() {
                   )}
                 </div>
 
-                <div className="flex gap-2">
-                  {guest.status === 'pending' && (
+                <div className="flex items-center gap-2">
+                  {guest.status === 'pending' ? (
                     <>
                       <button
                         onClick={() => handleAction(guest.id, 'approve')}
@@ -302,18 +304,87 @@ export default function AdminPage() {
                         {actionLoading === guest.id ? '...' : '✗ דחה'}
                       </button>
                     </>
-                  )}
-                  {guest.status === 'approved' && (
-                    <span className="text-green-600 text-sm">✓ אושר</span>
-                  )}
-                  {guest.status === 'rejected' && (
-                    <span className="text-red-500 text-sm">✗ נדחה</span>
+                  ) : editingGuest === guest.id ? (
+                    <>
+                      {guest.status === 'approved' ? (
+                        <button
+                          onClick={() => { setConfirmDialog({ guestId: guest.id, guestName: guest.name, action: 'reject' }); setEditingGuest(null) }}
+                          className="bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-sm text-sm transition"
+                        >
+                          ✗ העבר לנדחה
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => { setConfirmDialog({ guestId: guest.id, guestName: guest.name, action: 'approve' }); setEditingGuest(null) }}
+                          className="bg-green-50 hover:bg-green-100 text-green-600 px-4 py-2 rounded-sm text-sm transition"
+                        >
+                          ✓ העבר לאושר
+                        </button>
+                      )}
+                      <button
+                        onClick={() => setEditingGuest(null)}
+                        className="text-gray-400 hover:text-gray-600 px-2 py-2 text-sm transition"
+                      >
+                        ביטול
+                      </button>
+                    </>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <span className={`text-sm ${guest.status === 'approved' ? 'text-green-600' : 'text-red-500'}`}>
+                        {guest.status === 'approved' ? '✓ אושר' : '✗ נדחה'}
+                      </span>
+                      <button
+                        onClick={() => setEditingGuest(guest.id)}
+                        className="text-gray-300 hover:text-[#007272] transition p-1"
+                        title="שנה סטטוס"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
             ))
           )}
         </div>
+
+        {/* Confirmation Dialog */}
+        {confirmDialog && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-sm p-6 max-w-sm w-full shadow-xl">
+              <h3 className="text-lg font-light text-gray-900 mb-3 text-center">שינוי סטטוס</h3>
+              <p className="text-gray-500 text-sm text-center mb-6">
+                {confirmDialog.action === 'approve'
+                  ? `להעביר את ${confirmDialog.guestName} לאושר? יישלח מייל עם QR.`
+                  : `להעביר את ${confirmDialog.guestName} לנדחה?`}
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setConfirmDialog(null)}
+                  className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-sm text-sm transition"
+                >
+                  ביטול
+                </button>
+                <button
+                  onClick={async () => {
+                    await handleAction(confirmDialog.guestId, confirmDialog.action)
+                    setConfirmDialog(null)
+                  }}
+                  disabled={actionLoading === confirmDialog.guestId}
+                  className={`flex-1 py-2.5 rounded-sm text-sm transition disabled:opacity-50 ${
+                    confirmDialog.action === 'approve'
+                      ? 'bg-green-50 hover:bg-green-100 text-green-600'
+                      : 'bg-red-50 hover:bg-red-100 text-red-500'
+                  }`}
+                >
+                  {actionLoading === confirmDialog.guestId ? '...' : 'אישור'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   )

@@ -83,6 +83,11 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
             <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🚗 חניה: חניון מרכז הסיירים</p>
             <p style="margin: 10px 0 0 0; color: #007272; font-size: 14px; font-weight: bold;">🎭 קוד לבוש: תחפושות בלבד</p>
           </div>
+          <div style="background: #f0f9ff; border: 1px solid #bae6fd; padding: 16px; border-radius: 4px; margin: 20px 0 0 0; text-align: center;">
+            <p style="margin: 0; color: #4b5563; font-size: 14px; line-height: 1.8;">
+              נרשמתם ובסוף לא מסתדר לכם להגיע? הכל בסדר!<br/>נשמח אם תעדכנו אותנו 💙
+            </p>
+          </div>
         </div>
         <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
           <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאריק עזריאל במספר 054-524-3335</p>

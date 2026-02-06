@@ -112,7 +112,7 @@ function Fireworks() {
 
     function animate(time: number) {
       ctx!.globalCompositeOperation = 'source-over'
-      ctx!.fillStyle = 'rgba(74, 74, 79, 0.15)'
+      ctx!.fillStyle = 'rgba(43, 42, 42, 0.15)'
       ctx!.fillRect(0, 0, canvas!.width, canvas!.height)
       ctx!.globalCompositeOperation = 'lighter'
 
@@ -258,10 +258,10 @@ export default function Home() {
 
   if (status === 'success') {
     return (
-      <main className="min-h-screen bg-[#4a4a4f] flex items-center justify-center p-4 relative">
+      <main className="min-h-screen bg-[#2B2A2A] flex items-center justify-center p-4 relative">
         <Fireworks />
         <div className="relative bg-white p-10 max-w-md w-full text-center shadow-[0_0_60px_rgba(255,255,255,0.15)]" style={{ zIndex: 2 }}>
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#4a4a4f] px-4">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#2B2A2A] px-4">
             <span className="text-white text-sm tracking-[0.3em] uppercase">Laiysh Group</span>
           </div>
           <div className="text-5xl mb-6">🎭</div>
@@ -280,7 +280,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-[#4a4a4f] flex items-center justify-center p-4 relative">
+    <main className="min-h-screen bg-[#2B2A2A] flex items-center justify-center p-4 relative">
       <Fireworks />
 
       <div className="relative bg-white p-8 max-w-md w-full shadow-[0_0_60px_rgba(255,255,255,0.15)]" style={{ zIndex: 2 }}>
@@ -314,7 +314,7 @@ export default function Home() {
         </div>
 
         {/* Registration Info */}
-        <div className="mb-6 bg-gray-50 border border-gray-200 rounded-sm p-4 text-sm text-gray-500 leading-relaxed space-y-2">
+        <div className="mb-6 bg-gray-50 border border-gray-200 rounded-sm p-4 text-sm text-gray-500 leading-relaxed space-y-2 text-center">
           <p>נרשמתם? קודם תקבלו מייל קטן שמאשר שקיבלנו את ההרשמה 😉</p>
           <p>לאחר אישור המארגנים, יישלח מייל נוסף עם ברקוד - וזה הכרטיס שלכם למסיבה.</p>
           <p className="text-gray-400">עדיין מתלבטים? הכל טוב, חכו רגע עם ההרשמה.<br />מבחינתנו מי שנרשם, מגיע - ומספר המקומות מוגבל.</p>
@@ -425,7 +425,7 @@ export default function Home() {
 
         {/* Footer */}
         <div className="mt-6 pt-6 border-t border-gray-200 text-center space-y-3">
-          <p className="text-gray-400 text-xs leading-relaxed">
+          <p className="text-gray-900 text-xs leading-relaxed font-bold">
             מבקשים לא להעביר את הקישור לאחרים – הכניסה למוזמנים בלבד.
             <br />
             רוצים לצרף חברים? דברו איתנו, ובמידה ויתאפשר נשמח לאשר 🩵

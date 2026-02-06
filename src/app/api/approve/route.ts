@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update status
+    const previousStatus = guest.status
     const newStatus = action === 'approve' ? 'approved' : 'rejected'
     const { error: updateError } = await supabaseAdmin
       .from('guests')
@@ -43,11 +44,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Send email
+    // Send email only when newly approving (not when changing from approved to rejected)
     try {
-      if (action === 'approve') {
+      if (action === 'approve' && previousStatus !== 'approved') {
         await sendApprovalEmail(guest.email, guest.name, guest.qr_token)
-      } else {
+      } else if (action === 'reject' && previousStatus === 'pending') {
         await sendRejectionEmail(guest.email, guest.name)
       }
     } catch (emailError) {
