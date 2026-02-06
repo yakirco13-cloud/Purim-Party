@@ -14,36 +14,42 @@ const transporter = nodemailer.createTransport({
 export async function sendConfirmationEmail(to: string, name: string) {
   const html = `
     <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <div style="background: linear-gradient(135deg, #6B21A8 0%, #EC4899 100%); padding: 30px; border-radius: 16px 16px 0 0; text-align: center;">
-        <h1 style="color: white; margin: 0; font-size: 28px;">🎭 מסיבת פורים</h1>
-        <p style="color: #F59E0B; margin: 10px 0 0 0; font-size: 18px;">Laiysh Group</p>
-      </div>
-      <div style="background: #1F2937; padding: 30px; border-radius: 0 0 16px 16px; color: white;">
-        <h2 style="color: #F59E0B; margin-top: 0;">היי ${name}! 👋</h2>
-        <p style="font-size: 16px; line-height: 1.8;">
-          קיבלנו את הבקשה שלך להצטרף למסיבת הפורים! 🎉
-        </p>
-        <p style="font-size: 16px; line-height: 1.8;">
-          הבקשה שלך ממתינה לאישור. נשלח לך מייל נוסף עם QR code ברגע שתאושר.
-        </p>
-        <div style="background: #374151; padding: 20px; border-radius: 12px; margin: 20px 0;">
-          <p style="margin: 0; color: #9CA3AF;">📅 יום חמישי, 5 במרץ 2026</p>
-          <p style="margin: 10px 0 0 0; color: #9CA3AF;">🕢 19:30</p>
-          <p style="margin: 10px 0 0 0; color: #9CA3AF;">📍 הכישור 14, חולון</p>
-          <p style="margin: 10px 0 0 0; color: #9CA3AF;">🚗 חניה: חניון מרכז הסיירים</p>
-          <p style="margin: 10px 0 0 0; color: #EC4899;">👗 קוד לבוש: תחפושות בלבד!</p>
+      <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 4px; overflow: hidden;">
+        <div style="padding: 30px; text-align: center; border-bottom: 1px solid #e5e7eb;">
+          <p style="color: #007272; margin: 0 0 4px 0; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;">1993</p>
+          <h1 style="color: #111827; margin: 0; font-size: 28px; font-weight: 300; letter-spacing: 4px;">LAIYSH</h1>
+          <p style="color: #007272; margin: 4px 0 0 0; font-size: 13px; letter-spacing: 5px; text-transform: uppercase;">Group</p>
         </div>
-        <p style="color: #9CA3AF; font-size: 14px;">
-          נתראה בקרוב! 🎭✨
-        </p>
+        <div style="padding: 30px;">
+          <h2 style="color: #111827; margin: 0 0 16px 0; font-weight: 300; font-size: 22px;">היי ${name}!</h2>
+          <p style="font-size: 15px; line-height: 1.8; color: #4b5563; margin: 0 0 12px 0;">
+            קיבלנו את הבקשה שלך להצטרף למסיבת הפורים!
+          </p>
+          <p style="font-size: 15px; line-height: 1.8; color: #4b5563; margin: 0 0 20px 0;">
+            הבקשה שלך ממתינה לאישור. נשלח לך מייל נוסף עם QR code ברגע שתאושר.
+          </p>
+          <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 20px; border-radius: 4px; margin: 20px 0;">
+            <p style="margin: 0; color: #374151; font-size: 14px;">📅 יום חמישי, 5 במרץ 2026</p>
+            <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🕢 19:30</p>
+            <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">📍 הכישור 14, חולון</p>
+            <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🚗 חניה: חניון מרכז הסיירים</p>
+            <p style="margin: 10px 0 0 0; color: #007272; font-size: 14px; font-weight: bold;">🎭 קוד לבוש: תחפושות בלבד!</p>
+          </div>
+          <p style="color: #9ca3af; font-size: 13px; margin: 20px 0 0 0;">
+            נתראה בקרוב!
+          </p>
+        </div>
+        <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
+          <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאריק עזריאל במספר 054-524-3335</p>
+        </div>
       </div>
     </div>
   `
 
   await transporter.sendMail({
-    from: `"מסיבת פורים 🎭" <${process.env.EMAIL_FROM}>`,
+    from: `"מסיבת פורים - Laiysh Group" <${process.env.EMAIL_FROM}>`,
     to,
-    subject: '🎭 קיבלנו את הבקשה שלך - מסיבת פורים Laiysh Group',
+    subject: 'קיבלנו את הבקשה שלך - מסיבת פורים Laiysh Group',
     html,
   })
 }
@@ -53,43 +59,49 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
     width: 300,
     margin: 2,
     color: {
-      dark: '#6B21A8',
+      dark: '#007272',
       light: '#FFFFFF',
     },
   })
 
   const html = `
     <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <div style="background: linear-gradient(135deg, #6B21A8 0%, #EC4899 100%); padding: 30px; border-radius: 16px 16px 0 0; text-align: center;">
-        <h1 style="color: white; margin: 0; font-size: 28px;">🎭 מסיבת פורים</h1>
-        <p style="color: #F59E0B; margin: 10px 0 0 0; font-size: 18px;">Laiysh Group</p>
-      </div>
-      <div style="background: #1F2937; padding: 30px; border-radius: 0 0 16px 16px; color: white; text-align: center;">
-        <h2 style="color: #22C55E; margin-top: 0;">✅ ${name}, אושרת!</h2>
-        <p style="font-size: 18px; line-height: 1.8;">
-          הבקשה שלך אושרה! נתראה במסיבה 🎉
-        </p>
-        <div style="background: white; padding: 20px; border-radius: 12px; margin: 20px auto; display: inline-block;">
-          <img src="cid:qrcode" alt="QR Code" style="width: 200px; height: 200px;" />
+      <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 4px; overflow: hidden;">
+        <div style="padding: 30px; text-align: center; border-bottom: 1px solid #e5e7eb;">
+          <p style="color: #007272; margin: 0 0 4px 0; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;">1993</p>
+          <h1 style="color: #111827; margin: 0; font-size: 28px; font-weight: 300; letter-spacing: 4px;">LAIYSH</h1>
+          <p style="color: #007272; margin: 4px 0 0 0; font-size: 13px; letter-spacing: 5px; text-transform: uppercase;">Group</p>
         </div>
-        <p style="color: #F59E0B; font-size: 16px; font-weight: bold;">
-          ⚠️ שמור את הקוד הזה! תצטרך להציג אותו בכניסה
-        </p>
-        <div style="background: #374151; padding: 20px; border-radius: 12px; margin: 20px 0; text-align: right;">
-          <p style="margin: 0; color: #9CA3AF;">📅 יום חמישי, 5 במרץ 2026</p>
-          <p style="margin: 10px 0 0 0; color: #9CA3AF;">🕢 19:30</p>
-          <p style="margin: 10px 0 0 0; color: #9CA3AF;">📍 הכישור 14, חולון</p>
-          <p style="margin: 10px 0 0 0; color: #9CA3AF;">🚗 חניה: חניון מרכז הסיירים</p>
-          <p style="margin: 10px 0 0 0; color: #EC4899;">👗 קוד לבוש: תחפושות בלבד!</p>
+        <div style="padding: 30px; text-align: center;">
+          <h2 style="color: #007272; margin: 0 0 16px 0; font-weight: 400; font-size: 22px;">${name}, אושרת!</h2>
+          <p style="font-size: 16px; line-height: 1.8; color: #4b5563; margin: 0 0 20px 0;">
+            הבקשה שלך אושרה! נתראה במסיבה
+          </p>
+          <div style="background: #f9fafb; padding: 24px; border-radius: 4px; margin: 20px auto; display: inline-block; border: 1px solid #e5e7eb;">
+            <img src="cid:qrcode" alt="QR Code" style="width: 200px; height: 200px;" />
+          </div>
+          <p style="color: #b45309; font-size: 14px; font-weight: bold; margin: 16px 0;">
+            ⚠️ שמור את הקוד הזה! תצטרך להציג אותו בכניסה
+          </p>
+          <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 20px; border-radius: 4px; margin: 20px 0; text-align: right;">
+            <p style="margin: 0; color: #374151; font-size: 14px;">📅 יום חמישי, 5 במרץ 2026</p>
+            <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🕢 19:30</p>
+            <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">📍 הכישור 14, חולון</p>
+            <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🚗 חניה: חניון מרכז הסיירים</p>
+            <p style="margin: 10px 0 0 0; color: #007272; font-size: 14px; font-weight: bold;">🎭 קוד לבוש: תחפושות בלבד!</p>
+          </div>
+        </div>
+        <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
+          <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאריק עזריאל במספר 054-524-3335</p>
         </div>
       </div>
     </div>
   `
 
   await transporter.sendMail({
-    from: `"מסיבת פורים 🎭" <${process.env.EMAIL_FROM}>`,
+    from: `"מסיבת פורים - Laiysh Group" <${process.env.EMAIL_FROM}>`,
     to,
-    subject: '✅ אושרת! הנה ה-QR שלך - מסיבת פורים Laiysh Group',
+    subject: 'אושרת! הנה ה-QR שלך - מסיבת פורים Laiysh Group',
     html,
     attachments: [
       {
@@ -104,26 +116,32 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
 export async function sendRejectionEmail(to: string, name: string) {
   const html = `
     <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <div style="background: linear-gradient(135deg, #6B21A8 0%, #EC4899 100%); padding: 30px; border-radius: 16px 16px 0 0; text-align: center;">
-        <h1 style="color: white; margin: 0; font-size: 28px;">🎭 מסיבת פורים</h1>
-        <p style="color: #F59E0B; margin: 10px 0 0 0; font-size: 18px;">Laiysh Group</p>
-      </div>
-      <div style="background: #1F2937; padding: 30px; border-radius: 0 0 16px 16px; color: white;">
-        <h2 style="color: #EF4444; margin-top: 0;">היי ${name}</h2>
-        <p style="font-size: 16px; line-height: 1.8;">
-          לצערנו, לא נוכל לארח אותך הפעם במסיבה.
-        </p>
-        <p style="font-size: 16px; line-height: 1.8; color: #9CA3AF;">
-          מקווים לראותך באירועים הבאים! 💜
-        </p>
+      <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 4px; overflow: hidden;">
+        <div style="padding: 30px; text-align: center; border-bottom: 1px solid #e5e7eb;">
+          <p style="color: #007272; margin: 0 0 4px 0; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;">1993</p>
+          <h1 style="color: #111827; margin: 0; font-size: 28px; font-weight: 300; letter-spacing: 4px;">LAIYSH</h1>
+          <p style="color: #007272; margin: 4px 0 0 0; font-size: 13px; letter-spacing: 5px; text-transform: uppercase;">Group</p>
+        </div>
+        <div style="padding: 30px;">
+          <h2 style="color: #111827; margin: 0 0 16px 0; font-weight: 300; font-size: 22px;">היי ${name}</h2>
+          <p style="font-size: 15px; line-height: 1.8; color: #4b5563; margin: 0 0 12px 0;">
+            לצערנו, לא נוכל לארח אותך הפעם במסיבה.
+          </p>
+          <p style="font-size: 15px; line-height: 1.8; color: #9ca3af; margin: 0;">
+            מקווים לראותך באירועים הבאים!
+          </p>
+        </div>
+        <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
+          <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאריק עזריאל במספר 054-524-3335</p>
+        </div>
       </div>
     </div>
   `
 
   await transporter.sendMail({
-    from: `"מסיבת פורים 🎭" <${process.env.EMAIL_FROM}>`,
+    from: `"מסיבת פורים - Laiysh Group" <${process.env.EMAIL_FROM}>`,
     to,
-    subject: 'מסיבת פורים Laiysh Group',
+    subject: 'מסיבת פורים - Laiysh Group',
     html,
   })
 }

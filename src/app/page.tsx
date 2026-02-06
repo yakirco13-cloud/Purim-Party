@@ -10,6 +10,7 @@ export default function Home() {
     relation: '',
     guestCount: '1',
     note: '',
+    consent: false,
   })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -186,6 +187,19 @@ export default function Home() {
               placeholder="משהו שחשוב לנו לדעת?"
             />
           </div>
+
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              required
+              checked={formData.consent}
+              onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
+              className="mt-1 w-4 h-4 accent-[#007272] cursor-pointer"
+            />
+            <span className="text-gray-500 text-xs leading-relaxed">
+              אני מסכים/ה לקבלת עדכונים במייל בנוגע לאירוע זה, כולל אישור הרשמה וקוד כניסה *
+            </span>
+          </label>
 
           {status === 'error' && (
             <div className="bg-red-50 border border-red-200 rounded-sm p-3 text-red-600 text-sm">
