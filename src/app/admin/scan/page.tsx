@@ -26,6 +26,7 @@ export default function ScanPage() {
   const [scanning, setScanning] = useState(false)
   const [result, setResult] = useState<ScanResult | null>(null)
   const [pendingGuest, setPendingGuest] = useState<PendingGuest | null>(null)
+  const [adjustedCount, setAdjustedCount] = useState(1)
   const [error, setError] = useState<string | null>(null)
   const [processing, setProcessing] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -101,6 +102,7 @@ export default function ScanPage() {
           status: data.guest.status,
           alreadyCheckedIn: data.guest.checkedIn,
         })
+        setAdjustedCount(data.guest.guestCount)
       }
     } catch (err) {
       console.error('Lookup error:', err)
@@ -118,7 +120,7 @@ export default function ScanPage() {
       const res = await fetch('/api/check', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ qrToken: pendingGuest.qrToken }),
+        body: JSON.stringify({ qrToken: pendingGuest.qrToken, guestCount: adjustedCount }),
       })
 
       const data = await res.json()
@@ -155,7 +157,7 @@ export default function ScanPage() {
       <header className="bg-white border-b border-gray-200 p-4">
         <div className="max-w-lg mx-auto flex items-center justify-between">
           <Link href="/admin" className="text-[#007272] hover:text-[#009999] transition text-sm">
-            ← חזרה
+            → חזרה
           </Link>
           <div className="text-center">
             <h1 className="text-lg font-light text-gray-900 tracking-wider">סריקת QR</h1>
@@ -173,9 +175,23 @@ export default function ScanPage() {
             <div className="text-center mb-6">
               <div className="text-4xl mb-3">🎭</div>
               <h2 className="text-2xl font-light text-gray-900 mb-1">{pendingGuest.name}</h2>
-              <div className="flex items-center justify-center gap-2 text-[#007272]">
-                <span className="text-lg">{pendingGuest.guestCount}</span>
-                <span className="text-sm">{pendingGuest.guestCount === 1 ? 'אורח' : 'אורחים'}</span>
+              <div className="flex items-center justify-center gap-3 text-[#007272] mt-2">
+                <button
+                  type="button"
+                  onClick={() => setAdjustedCount(Math.max(1, adjustedCount - 1))}
+                  className="w-9 h-9 flex items-center justify-center border border-[#007272] rounded-sm text-[#007272] hover:bg-[#007272] hover:text-white transition text-lg font-bold"
+                >
+                  &lt;
+                </button>
+                <span className="text-2xl font-light min-w-[2rem] text-center">{adjustedCount}</span>
+                <button
+                  type="button"
+                  onClick={() => setAdjustedCount(adjustedCount + 1)}
+                  className="w-9 h-9 flex items-center justify-center border border-[#007272] rounded-sm text-[#007272] hover:bg-[#007272] hover:text-white transition text-lg font-bold"
+                >
+                  &gt;
+                </button>
+                <span className="text-sm">{adjustedCount === 1 ? 'אורח' : 'אורחים'}</span>
               </div>
             </div>
 

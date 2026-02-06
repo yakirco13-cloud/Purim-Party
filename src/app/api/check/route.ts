@@ -4,7 +4,7 @@ import { supabaseAdmin } from '@/lib/supabase'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { qrToken } = body
+    const { qrToken, guestCount } = body
 
     if (!qrToken) {
       return NextResponse.json(
@@ -47,13 +47,17 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Mark as checked in
+    // Mark as checked in (update guest count if admin adjusted it)
+    const updateData: Record<string, unknown> = {
+      checked_in: true,
+      checked_in_at: new Date().toISOString(),
+    }
+    if (guestCount && guestCount !== guest.guest_count) {
+      updateData.guest_count = guestCount
+    }
     const { error: updateError } = await supabaseAdmin
       .from('guests')
-      .update({
-        checked_in: true,
-        checked_in_at: new Date().toISOString(),
-      })
+      .update(updateData)
       .eq('id', guest.id)
 
     if (updateError) {
@@ -68,7 +72,7 @@ export async function POST(request: NextRequest) {
       valid: true,
       guest: {
         name: guest.name,
-        guestCount: guest.guest_count,
+        guestCount: guestCount || guest.guest_count,
       },
     })
   } catch (error) {
