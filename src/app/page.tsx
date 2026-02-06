@@ -314,10 +314,10 @@ export default function Home() {
         </div>
 
         {/* Registration Info */}
-        <div className="mb-6 bg-gray-50 border border-gray-200 rounded-sm p-4 text-sm text-gray-500 leading-relaxed space-y-2 text-center">
+        <div className="mb-6 bg-gray-50 border border-gray-200 rounded-sm p-4 text-sm text-gray-900 leading-relaxed space-y-2 text-center font-bold">
           <p>נרשמתם? קודם תקבלו מייל קטן שמאשר שקיבלנו את ההרשמה 😉</p>
           <p>לאחר אישור המארגנים, יישלח מייל נוסף עם ברקוד - וזה הכרטיס שלכם למסיבה.</p>
-          <p className="text-gray-400">עדיין מתלבטים? הכל טוב, חכו רגע עם ההרשמה.<br />מבחינתנו מי שנרשם, מגיע - ומספר המקומות מוגבל.</p>
+          <p>עדיין מתלבטים? הכל טוב, חכו רגע עם ההרשמה.<br />מבחינתנו מי שנרשם, מגיע - ומספר המקומות מוגבל.</p>
         </div>
 
         {/* Form */}
@@ -425,7 +425,7 @@ export default function Home() {
 
         {/* Footer */}
         <div className="mt-6 pt-6 border-t border-gray-200 text-center space-y-3">
-          <p className="text-gray-900 text-xs leading-relaxed font-bold">
+          <p className="text-gray-900 text-base leading-relaxed font-bold">
             מבקשים לא להעביר את הקישור לאחרים – הכניסה למוזמנים בלבד.
             <br />
             רוצים לצרף חברים? דברו איתנו, ובמידה ויתאפשר נשמח לאשר 🩵
