@@ -53,6 +53,9 @@ export default function Home() {
           <p className="text-gray-500 mb-4 leading-relaxed">
             שלחנו לך מייל אישור. ברגע שהבקשה תאושר, תקבל מייל נוסף עם QR code.
           </p>
+          <div className="bg-amber-50 border border-amber-200 rounded-sm p-3 mb-4 text-amber-700 text-sm">
+            שים לב — שליחת הבקשה אינה מהווה אישור השתתפות. תקבל מייל נפרד במידה ותאושר.
+          </div>
           <p className="text-[#007272] text-sm">בדוק גם בתיקיית הספאם 📧</p>
         </div>
       </main>
