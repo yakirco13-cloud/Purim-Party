@@ -1,6 +1,222 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
+type Particle = {
+  x: number
+  y: number
+  vx: number
+  vy: number
+  alpha: number
+  color: string
+  size: number
+  decay: number
+  gravity: number
+  trail: Array<{ x: number; y: number; alpha: number }>
+}
+
+type Firework = {
+  x: number
+  y: number
+  targetY: number
+  vy: number
+  color: string
+  exploded: boolean
+  trail: Array<{ x: number; y: number; alpha: number }>
+}
+
+function Fireworks() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    let animationId: number
+    const particles: Particle[] = []
+    const fireworks: Firework[] = []
+    let lastSpawn = 0
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    const colors = [
+      ['#ff4444', '#ff8866', '#ffaa88'],
+      ['#FFD700', '#FFA500', '#ffcc44'],
+      ['#44aaff', '#66ccff', '#88ddff'],
+      ['#ff66cc', '#ff88dd', '#ffaaee'],
+      ['#ffffff', '#ddddff', '#aabbff'],
+      ['#44ffaa', '#66ffcc', '#88ffdd'],
+    ]
+
+    function spawnFirework() {
+      const colorSet = colors[Math.floor(Math.random() * colors.length)]
+      fireworks.push({
+        x: Math.random() * canvas!.width * 0.6 + canvas!.width * 0.2,
+        y: canvas!.height,
+        targetY: Math.random() * canvas!.height * 0.4 + canvas!.height * 0.1,
+        vy: -(8 + Math.random() * 4),
+        color: colorSet[0],
+        exploded: false,
+        trail: [],
+      })
+    }
+
+    function explode(x: number, y: number, colorSet: string[]) {
+      const count = 80 + Math.floor(Math.random() * 40)
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.3
+        const speed = 2 + Math.random() * 4
+        const color = colorSet[Math.floor(Math.random() * colorSet.length)]
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          color,
+          size: 1.5 + Math.random() * 1.5,
+          decay: 0.008 + Math.random() * 0.008,
+          gravity: 0.03 + Math.random() * 0.02,
+          trail: [],
+        })
+      }
+      // Sparkle core
+      for (let i = 0; i < 15; i++) {
+        const angle = Math.random() * Math.PI * 2
+        const speed = Math.random() * 1.5
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          color: '#ffffff',
+          size: 1 + Math.random(),
+          decay: 0.02 + Math.random() * 0.02,
+          gravity: 0.01,
+          trail: [],
+        })
+      }
+    }
+
+    function getColorSet(color: string) {
+      return colors.find(c => c[0] === color) || colors[0]
+    }
+
+    function animate(time: number) {
+      ctx!.globalCompositeOperation = 'source-over'
+      ctx!.fillStyle = 'rgba(0, 114, 114, 0.15)'
+      ctx!.fillRect(0, 0, canvas!.width, canvas!.height)
+      ctx!.globalCompositeOperation = 'lighter'
+
+      // Spawn fireworks
+      if (time - lastSpawn > 600 + Math.random() * 1500) {
+        spawnFirework()
+        if (Math.random() > 0.5) spawnFirework() // sometimes double
+        lastSpawn = time
+      }
+
+      // Update fireworks (rising)
+      for (let i = fireworks.length - 1; i >= 0; i--) {
+        const fw = fireworks[i]
+        fw.trail.push({ x: fw.x, y: fw.y, alpha: 0.8 })
+        if (fw.trail.length > 8) fw.trail.shift()
+
+        fw.y += fw.vy
+        fw.vy += 0.08 // gravity on rise
+
+        // Draw trail
+        for (let t = 0; t < fw.trail.length; t++) {
+          const pt = fw.trail[t]
+          pt.alpha *= 0.85
+          ctx!.beginPath()
+          ctx!.arc(pt.x, pt.y, 2, 0, Math.PI * 2)
+          ctx!.fillStyle = `rgba(255, 200, 100, ${pt.alpha})`
+          ctx!.fill()
+        }
+
+        // Draw firework
+        ctx!.beginPath()
+        ctx!.arc(fw.x, fw.y, 3, 0, Math.PI * 2)
+        ctx!.fillStyle = `rgba(255, 220, 150, 1)`
+        ctx!.fill()
+
+        // Explode
+        if (fw.y <= fw.targetY || fw.vy >= 0) {
+          explode(fw.x, fw.y, getColorSet(fw.color))
+          fireworks.splice(i, 1)
+        }
+      }
+
+      // Update particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i]
+        p.trail.push({ x: p.x, y: p.y, alpha: p.alpha * 0.5 })
+        if (p.trail.length > 5) p.trail.shift()
+
+        p.vx *= 0.98
+        p.vy += p.gravity
+        p.x += p.vx
+        p.y += p.vy
+        p.alpha -= p.decay
+
+        // Draw trail
+        for (let t = 0; t < p.trail.length; t++) {
+          const pt = p.trail[t]
+          pt.alpha *= 0.7
+          ctx!.beginPath()
+          ctx!.arc(pt.x, pt.y, p.size * 0.6, 0, Math.PI * 2)
+          ctx!.fillStyle = `${p.color}${Math.floor(pt.alpha * 255).toString(16).padStart(2, '0')}`
+          ctx!.fill()
+        }
+
+        // Draw particle
+        ctx!.beginPath()
+        ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2)
+        ctx!.fillStyle = `${p.color}${Math.floor(p.alpha * 255).toString(16).padStart(2, '0')}`
+        ctx!.fill()
+
+        // Glow
+        ctx!.beginPath()
+        ctx!.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2)
+        ctx!.fillStyle = `${p.color}${Math.floor(p.alpha * 40).toString(16).padStart(2, '0')}`
+        ctx!.fill()
+
+        if (p.alpha <= 0) {
+          particles.splice(i, 1)
+        }
+      }
+
+      animationId = requestAnimationFrame(animate)
+    }
+
+    // Initial burst
+    setTimeout(spawnFirework, 200)
+    setTimeout(spawnFirework, 500)
+    setTimeout(spawnFirework, 900)
+    animationId = requestAnimationFrame(animate)
+
+    return () => {
+      cancelAnimationFrame(animationId)
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none"
+      style={{ zIndex: 1 }}
+    />
+  )
+}
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -42,10 +258,11 @@ export default function Home() {
 
   if (status === 'success') {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="relative bg-white border border-gray-200 rounded-sm p-10 max-w-md w-full text-center shadow-lg">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-50 px-4">
-            <span className="text-[#007272] text-sm tracking-[0.3em] uppercase">Laiysh Group</span>
+      <main className="min-h-screen bg-[#007272] flex items-center justify-center p-4 relative">
+        <Fireworks />
+        <div className="relative bg-white p-10 max-w-md w-full text-center shadow-[0_0_60px_rgba(255,255,255,0.3)]" style={{ zIndex: 2 }}>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#007272] px-4">
+            <span className="text-white text-sm tracking-[0.3em] uppercase">Laiysh Group</span>
           </div>
           <div className="text-5xl mb-6">🎭</div>
           <h1 className="text-2xl font-light text-gray-900 mb-4 tracking-wide">הבקשה נשלחה בהצלחה</h1>
@@ -63,9 +280,10 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <main className="min-h-screen bg-[#007272] flex items-center justify-center p-4 relative">
+      <Fireworks />
 
-      <div className="relative bg-white border border-gray-200 rounded-sm p-8 max-w-md w-full shadow-lg">
+      <div className="relative bg-white p-8 max-w-md w-full shadow-[0_0_60px_rgba(255,255,255,0.3)]" style={{ zIndex: 2 }}>
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-2">
