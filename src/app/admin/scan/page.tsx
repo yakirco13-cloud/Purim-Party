@@ -19,7 +19,7 @@ export default function ScanPage() {
   const [result, setResult] = useState<ScanResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const readerRef = useRef<BrowserMultiFormatReader | null>(null)
+  const controlsRef = useRef<{ stop: () => void } | null>(null)
 
   const startScanning = async () => {
     setResult(null)
@@ -27,9 +27,9 @@ export default function ScanPage() {
     setScanning(true)
 
     try {
-      readerRef.current = new BrowserMultiFormatReader()
+      const reader = new BrowserMultiFormatReader()
       
-      await readerRef.current.decodeFromVideoDevice(
+      const controls = await reader.decodeFromVideoDevice(
         undefined,
         videoRef.current!,
         async (decoded) => {
@@ -39,6 +39,7 @@ export default function ScanPage() {
           }
         }
       )
+      controlsRef.current = controls
     } catch (err) {
       console.error('Scanner error:', err)
       setError('לא הצלחנו לגשת למצלמה. בדוק את ההרשאות.')
@@ -47,9 +48,9 @@ export default function ScanPage() {
   }
 
   const stopScanning = () => {
-    if (readerRef.current) {
-      readerRef.current.reset()
-      readerRef.current = null
+    if (controlsRef.current) {
+      controlsRef.current.stop()
+      controlsRef.current = null
     }
     setScanning(false)
   }
@@ -79,8 +80,8 @@ export default function ScanPage() {
 
   useEffect(() => {
     return () => {
-      if (readerRef.current) {
-        readerRef.current.reset()
+      if (controlsRef.current) {
+        controlsRef.current.stop()
       }
     }
   }, [])
