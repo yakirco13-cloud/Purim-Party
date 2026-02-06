@@ -29,8 +29,19 @@ export default function ScanPage() {
     try {
       const reader = new BrowserMultiFormatReader()
       
+      // Get video devices and prefer back camera
+      const devices = await navigator.mediaDevices.enumerateDevices()
+      const videoDevices = devices.filter(d => d.kind === 'videoinput')
+      const backCamera = videoDevices.find(d => 
+        d.label.toLowerCase().includes('back') || 
+        d.label.toLowerCase().includes('rear') ||
+        d.label.toLowerCase().includes('environment')
+      )
+      
+      const deviceId = backCamera?.deviceId || undefined
+      
       const controls = await reader.decodeFromVideoDevice(
-        undefined,
+        deviceId,
         videoRef.current!,
         async (decoded) => {
           if (decoded) {
