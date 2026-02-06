@@ -45,7 +45,7 @@ export default function AdminPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoginError('')
-    
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -76,7 +76,7 @@ export default function AdminPage() {
 
   const handleAction = async (guestId: string, action: 'approve' | 'reject') => {
     setActionLoading(guestId)
-    
+
     try {
       const res = await fetch('/api/approve', {
         method: 'POST',
@@ -90,11 +90,11 @@ export default function AdminPage() {
     } catch (error) {
       console.error('Action error:', error)
     }
-    
+
     setActionLoading(null)
   }
 
-  const filteredGuests = guests.filter((g) => 
+  const filteredGuests = guests.filter((g) =>
     filter === 'all' ? true : g.status === filter
   )
 
@@ -111,56 +111,61 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-white text-xl">⏳ טוען...</div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-[#007272] text-sm tracking-widest">טוען...</div>
       </div>
     )
   }
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-pink-800 flex items-center justify-center p-4">
-        <div className="bg-gray-900/90 backdrop-blur-sm rounded-3xl p-8 max-w-md w-full shadow-2xl border border-purple-500/20">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="relative bg-white border border-gray-200 rounded-sm p-8 max-w-md w-full shadow-lg">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">🔐 כניסת מנהל</h1>
-            <p className="text-gray-400">מסיבת פורים - Laiysh Group</p>
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <div className="h-px w-8 bg-gradient-to-r from-transparent to-[#007272]"></div>
+              <span className="text-[#007272] text-xs tracking-[0.3em] uppercase">Admin</span>
+              <div className="h-px w-8 bg-gradient-to-l from-transparent to-[#007272]"></div>
+            </div>
+            <h1 className="text-2xl font-light text-gray-900 tracking-wider mb-1">LAIYSH</h1>
+            <p className="text-[#007272] tracking-[0.4em] text-xs uppercase">Group</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-gray-300 mb-1 text-sm">אימייל</label>
+              <label className="block text-gray-500 mb-2 text-xs tracking-wider uppercase">אימייל</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 text-gray-900 focus:outline-none focus:border-[#007272] transition"
                 dir="ltr"
               />
             </div>
 
             <div>
-              <label className="block text-gray-300 mb-1 text-sm">סיסמה</label>
+              <label className="block text-gray-500 mb-2 text-xs tracking-wider uppercase">סיסמה</label>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition"
+                className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 text-gray-900 focus:outline-none focus:border-[#007272] transition"
               />
             </div>
 
             {loginError && (
-              <div className="bg-red-500/20 border border-red-500 rounded-xl p-3 text-red-400 text-sm">
+              <div className="bg-red-50 border border-red-200 rounded-sm p-3 text-red-600 text-sm">
                 {loginError}
               </div>
             )}
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 rounded-xl transition shadow-lg"
+              className="w-full bg-[#007272] hover:bg-[#008888] text-white py-3 rounded-sm transition tracking-wider uppercase text-sm"
             >
-              🚀 התחבר
+              התחבר
             </button>
           </form>
         </div>
@@ -169,24 +174,24 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-gray-800 border-b border-gray-700 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-white">🎭 לוח בקרה</h1>
-            <p className="text-gray-400 text-sm">מסיבת פורים - Laiysh Group</p>
+            <h1 className="text-xl font-light text-gray-900 tracking-wider">לוח בקרה</h1>
+            <p className="text-[#007272] text-xs tracking-widest">LAIYSH GROUP</p>
           </div>
           <div className="flex items-center gap-4">
             <Link
               href="/admin/scan"
-              className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-xl font-medium transition"
+              className="bg-[#007272] hover:bg-[#008888] text-white px-4 py-2 rounded-sm transition text-sm tracking-wider"
             >
-              📷 סריקת QR
+              סריקת QR
             </Link>
             <button
               onClick={handleLogout}
-              className="text-gray-400 hover:text-white transition"
+              className="text-gray-400 hover:text-gray-900 transition text-sm"
             >
               התנתק
             </button>
@@ -194,28 +199,28 @@ export default function AdminPage() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-6">
+      <main className="max-w-6xl mx-auto px-4 py-6">
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-          <div className="bg-gray-800 rounded-2xl p-4 text-center">
-            <div className="text-3xl font-bold text-white">{stats.total}</div>
-            <div className="text-gray-400 text-sm">סה״כ בקשות</div>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+          <div className="bg-white border border-gray-200 rounded-sm p-4 text-center shadow-sm">
+            <div className="text-2xl font-light text-gray-900">{stats.total}</div>
+            <div className="text-gray-400 text-xs tracking-wider uppercase">סה״כ בקשות</div>
           </div>
-          <div className="bg-amber-500/20 rounded-2xl p-4 text-center">
-            <div className="text-3xl font-bold text-amber-400">{stats.pending}</div>
-            <div className="text-gray-400 text-sm">ממתינים</div>
+          <div className="bg-white border border-yellow-200 rounded-sm p-4 text-center shadow-sm">
+            <div className="text-2xl font-light text-yellow-600">{stats.pending}</div>
+            <div className="text-gray-400 text-xs tracking-wider uppercase">ממתינים</div>
           </div>
-          <div className="bg-green-500/20 rounded-2xl p-4 text-center">
-            <div className="text-3xl font-bold text-green-400">{stats.approved}</div>
-            <div className="text-gray-400 text-sm">אושרו</div>
+          <div className="bg-white border border-green-200 rounded-sm p-4 text-center shadow-sm">
+            <div className="text-2xl font-light text-green-600">{stats.approved}</div>
+            <div className="text-gray-400 text-xs tracking-wider uppercase">אושרו</div>
           </div>
-          <div className="bg-purple-500/20 rounded-2xl p-4 text-center">
-            <div className="text-3xl font-bold text-purple-400">{stats.totalPeople}</div>
-            <div className="text-gray-400 text-sm">סה״כ אנשים</div>
+          <div className="bg-white border border-[#007272]/30 rounded-sm p-4 text-center shadow-sm">
+            <div className="text-2xl font-light text-[#007272]">{stats.totalPeople}</div>
+            <div className="text-gray-400 text-xs tracking-wider uppercase">סה״כ אנשים</div>
           </div>
-          <div className="bg-blue-500/20 rounded-2xl p-4 text-center">
-            <div className="text-3xl font-bold text-blue-400">{stats.checkedIn}</div>
-            <div className="text-gray-400 text-sm">נכנסו</div>
+          <div className="bg-white border border-blue-200 rounded-sm p-4 text-center shadow-sm">
+            <div className="text-2xl font-light text-blue-500">{stats.checkedIn}</div>
+            <div className="text-gray-400 text-xs tracking-wider uppercase">נכנסו</div>
           </div>
         </div>
 
@@ -225,56 +230,57 @@ export default function AdminPage() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-4 py-2 rounded-xl font-medium transition ${
+              className={`px-4 py-2 rounded-sm text-sm transition ${
                 filter === f
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                  ? 'bg-[#007272] text-white'
+                  : 'bg-white border border-gray-200 text-gray-400 hover:border-[#007272] hover:text-[#007272]'
               }`}
             >
               {f === 'all' && 'הכל'}
-              {f === 'pending' && '⏳ ממתינים'}
-              {f === 'approved' && '✅ אושרו'}
-              {f === 'rejected' && '❌ נדחו'}
+              {f === 'pending' && 'ממתינים'}
+              {f === 'approved' && 'אושרו'}
+              {f === 'rejected' && 'נדחו'}
             </button>
           ))}
           <button
             onClick={fetchGuests}
-            className="px-4 py-2 rounded-xl font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition mr-auto"
+            className="px-4 py-2 rounded-sm text-sm bg-white border border-gray-200 text-gray-400 hover:border-[#007272] hover:text-[#007272] transition mr-auto"
           >
-            🔄 רענן
+            רענן
           </button>
         </div>
 
         {/* Guest List */}
-        <div className="space-y-3">
+        <div className="space-y-2">
           {filteredGuests.length === 0 ? (
-            <div className="bg-gray-800 rounded-2xl p-8 text-center text-gray-400">
+            <div className="bg-white border border-gray-200 rounded-sm p-8 text-center text-gray-400 shadow-sm">
               אין בקשות להצגה
             </div>
           ) : (
             filteredGuests.map((guest) => (
               <div
                 key={guest.id}
-                className="bg-gray-800 rounded-2xl p-4 flex flex-col md:flex-row md:items-center gap-4"
+                className="bg-white border border-gray-200 rounded-sm p-4 flex flex-col md:flex-row md:items-center gap-4 shadow-sm"
               >
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-white font-bold text-lg">{guest.name}</span>
-                    <span className="bg-purple-500/30 text-purple-300 text-xs px-2 py-1 rounded-full">
+                  <div className="flex items-center gap-3 mb-1">
+                    <span className="text-gray-900 font-light text-lg">{guest.name}</span>
+                    <span className="bg-[#007272]/10 text-[#007272] text-xs px-2 py-1 rounded-sm">
                       {guest.guest_count} {guest.guest_count === 1 ? 'אורח' : 'אורחים'}
                     </span>
                     {guest.checked_in && (
-                      <span className="bg-green-500/30 text-green-300 text-xs px-2 py-1 rounded-full">
+                      <span className="bg-green-50 text-green-600 text-xs px-2 py-1 rounded-sm">
                         ✓ נכנס
                       </span>
                     )}
                   </div>
-                  <div className="text-gray-400 text-sm space-x-4 space-x-reverse">
+                  <div className="text-gray-400 text-sm space-x-3 space-x-reverse">
                     <span>{guest.email}</span>
+                    <span>•</span>
                     <span>{guest.phone}</span>
                   </div>
                   {guest.note && (
-                    <div className="text-gray-500 text-sm mt-1">💬 {guest.note}</div>
+                    <div className="text-gray-400 text-sm mt-1">💬 {guest.note}</div>
                   )}
                 </div>
 
@@ -284,24 +290,24 @@ export default function AdminPage() {
                       <button
                         onClick={() => handleAction(guest.id, 'approve')}
                         disabled={actionLoading === guest.id}
-                        className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-xl font-medium transition disabled:opacity-50"
+                        className="bg-green-50 hover:bg-green-100 text-green-600 px-4 py-2 rounded-sm text-sm transition disabled:opacity-50"
                       >
-                        {actionLoading === guest.id ? '⏳' : '✅ אשר'}
+                        {actionLoading === guest.id ? '...' : '✓ אשר'}
                       </button>
                       <button
                         onClick={() => handleAction(guest.id, 'reject')}
                         disabled={actionLoading === guest.id}
-                        className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-xl font-medium transition disabled:opacity-50"
+                        className="bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 rounded-sm text-sm transition disabled:opacity-50"
                       >
-                        {actionLoading === guest.id ? '⏳' : '❌ דחה'}
+                        {actionLoading === guest.id ? '...' : '✗ דחה'}
                       </button>
                     </>
                   )}
                   {guest.status === 'approved' && (
-                    <span className="text-green-400 font-medium">✅ אושר</span>
+                    <span className="text-green-600 text-sm">✓ אושר</span>
                   )}
                   {guest.status === 'rejected' && (
-                    <span className="text-red-400 font-medium">❌ נדחה</span>
+                    <span className="text-red-500 text-sm">✗ נדחה</span>
                   )}
                 </div>
               </div>
