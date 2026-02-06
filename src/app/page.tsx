@@ -112,7 +112,7 @@ function Fireworks() {
 
     function animate(time: number) {
       ctx!.globalCompositeOperation = 'source-over'
-      ctx!.fillStyle = 'rgba(0, 114, 114, 0.15)'
+      ctx!.fillStyle = 'rgba(74, 74, 79, 0.15)'
       ctx!.fillRect(0, 0, canvas!.width, canvas!.height)
       ctx!.globalCompositeOperation = 'lighter'
 
@@ -258,10 +258,10 @@ export default function Home() {
 
   if (status === 'success') {
     return (
-      <main className="min-h-screen bg-[#007272] flex items-center justify-center p-4 relative">
+      <main className="min-h-screen bg-[#4a4a4f] flex items-center justify-center p-4 relative">
         <Fireworks />
-        <div className="relative bg-white p-10 max-w-md w-full text-center shadow-[0_0_60px_rgba(255,255,255,0.3)]" style={{ zIndex: 2 }}>
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#007272] px-4">
+        <div className="relative bg-white p-10 max-w-md w-full text-center shadow-[0_0_60px_rgba(255,255,255,0.15)]" style={{ zIndex: 2 }}>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#4a4a4f] px-4">
             <span className="text-white text-sm tracking-[0.3em] uppercase">Laiysh Group</span>
           </div>
           <div className="text-5xl mb-6">🎭</div>
@@ -280,12 +280,12 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-[#007272] flex items-center justify-center p-4 relative">
+    <main className="min-h-screen bg-[#4a4a4f] flex items-center justify-center p-4 relative">
       <Fireworks />
 
-      <div className="relative bg-white p-8 max-w-md w-full shadow-[0_0_60px_rgba(255,255,255,0.3)]" style={{ zIndex: 2 }}>
+      <div className="relative bg-white p-8 max-w-md w-full shadow-[0_0_60px_rgba(255,255,255,0.15)]" style={{ zIndex: 2 }}>
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <div className="flex items-center justify-center gap-3 mb-2">
             <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#007272]"></div>
             <span className="text-[#007272] text-xs tracking-[0.3em] uppercase">1993</span>
@@ -293,20 +293,31 @@ export default function Home() {
           </div>
           <h1 className="text-3xl font-light text-gray-900 tracking-wider mb-1">LAIYSH</h1>
           <p className="text-[#007272] tracking-[0.4em] text-sm uppercase">Group</p>
-          <div className="mt-4 mb-2">
-            <span className="text-gray-900 text-xl">מסיבת פורים 2026</span>
+        </div>
+
+        {/* Welcome */}
+        <div className="text-center mb-5">
+          <p className="text-gray-900 text-lg font-medium mb-3">ברוכים הבאים למסיבת פורים 2026 ✨🎭</p>
+          <div className="text-gray-500 text-sm space-y-1">
+            <p>יום חמישי | 5.3.26</p>
+            <p>19:30 🕢</p>
+            <p>הכישור 14, חולון 📍</p>
           </div>
-          <p className="text-gray-400 text-sm">הזמנה אישית</p>
         </div>
 
         {/* Description */}
-        <div className="mb-6 text-center">
+        <div className="mb-5 text-center">
           <p className="text-gray-500 text-sm leading-relaxed mb-3">
-            הנכם מוזמנים למסיבת הפורים השנתית של קבוצת ליש.
-            <br />
-            מלאו את הפרטים כדי לשלוח בקשת השתתפות.
+            אז מה מחכה לכם? דוכני אוכל שווים, בר אלכוהול מפנק, ליינאפ משוגע, סאונד פגז ואווירת פורים מטורפת.
           </p>
-          <p className="text-gray-900 text-sm font-medium">📅 יום חמישי, 5 במרץ 2026</p>
+          <p className="text-[#007272] text-sm font-medium">הכניסה ללא עלות ובהרשמה מראש בלבד!</p>
+        </div>
+
+        {/* Registration Info */}
+        <div className="mb-6 bg-gray-50 border border-gray-200 rounded-sm p-4 text-sm text-gray-500 leading-relaxed space-y-2">
+          <p>נרשמתם? קודם תקבלו מייל קטן שמאשר שקיבלנו את ההרשמה 😉</p>
+          <p>לאחר אישור המארגנים, יישלח מייל נוסף עם ברקוד - וזה הכרטיס שלכם למסיבה.</p>
+          <p className="text-gray-400">עדיין מתלבטים? הכל טוב, חכו רגע עם ההרשמה.<br />מבחינתנו מי שנרשם, מגיע - ומספר המקומות מוגבל.</p>
         </div>
 
         {/* Form */}
@@ -413,7 +424,12 @@ export default function Home() {
         </form>
 
         {/* Footer */}
-        <div className="mt-6 pt-6 border-t border-gray-200 text-center">
+        <div className="mt-6 pt-6 border-t border-gray-200 text-center space-y-3">
+          <p className="text-gray-400 text-xs leading-relaxed">
+            מבקשים לא להעביר את הקישור לאחרים – הכניסה למוזמנים בלבד.
+            <br />
+            רוצים לצרף חברים? דברו איתנו, ובמידה ויתאפשר נשמח לאשר 🩵
+          </p>
           <p className="text-gray-400 text-xs">לבירורים ניתן לפנות לאריק עזריאל במספר <a href="tel:0545243335" className="text-[#007272] hover:text-[#009999] transition">054-524-3335</a></p>
         </div>
       </div>
