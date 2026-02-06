@@ -299,39 +299,14 @@ export default function Home() {
           <p className="text-gray-400 text-sm">הזמנה אישית</p>
         </div>
 
-        {/* Event Details */}
-        <div className="border border-gray-200 rounded-sm p-4 mb-6 space-y-3 text-gray-500 text-sm">
-          <div className="flex justify-between items-center">
-            <span>📅 תאריך</span>
-            <span className="text-gray-900">יום חמישי, 5 במרץ</span>
-          </div>
-          <div className="h-px bg-gray-100"></div>
-          <div className="flex justify-between items-center">
-            <span>🕢 שעה</span>
-            <span className="text-gray-900">19:30</span>
-          </div>
-          <div className="h-px bg-gray-100"></div>
-          <div className="flex justify-between items-center">
-            <span>📍 מיקום</span>
-            <a
-              href="https://maps.google.com/?q=הכישור+14+חולון"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#007272] hover:text-[#009999] transition"
-            >
-              הכישור 14, חולון
-            </a>
-          </div>
-          <div className="h-px bg-gray-100"></div>
-          <div className="flex justify-between items-center">
-            <span>🚗 חניה</span>
-            <span className="text-gray-900">חניון מרכז הסיירים</span>
-          </div>
-          <div className="h-px bg-gray-100"></div>
-          <div className="flex justify-between items-center">
-            <span>🎭 קוד לבוש</span>
-            <span className="text-[#007272] font-medium">תחפושות בלבד!</span>
-          </div>
+        {/* Description */}
+        <div className="mb-6 text-center">
+          <p className="text-gray-500 text-sm leading-relaxed mb-3">
+            הנכם מוזמנים למסיבת הפורים השנתית של קבוצת ליש.
+            <br />
+            מלאו את הפרטים כדי לשלוח בקשת השתתפות.
+          </p>
+          <p className="text-gray-900 text-sm font-medium">📅 יום חמישי, 5 במרץ 2026</p>
         </div>
 
         {/* Form */}
@@ -382,7 +357,7 @@ export default function Home() {
               value={formData.relation}
               onChange={(e) => setFormData({ ...formData, relation: e.target.value })}
               className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 text-gray-900 focus:outline-none focus:border-[#007272] transition placeholder-gray-300"
-              placeholder="לדוגמה: עובד, ספק, לקוח"
+              placeholder="לדוגמה: משפחה, חברים, עובד"
             />
           </div>
 

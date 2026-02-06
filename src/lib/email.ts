@@ -28,15 +28,8 @@ export async function sendConfirmationEmail(to: string, name: string) {
           <p style="font-size: 15px; line-height: 1.8; color: #4b5563; margin: 0 0 20px 0;">
             הבקשה שלך ממתינה לאישור. נשלח לך מייל נוסף עם QR code ברגע שתאושר.
           </p>
-          <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 20px; border-radius: 4px; margin: 20px 0;">
-            <p style="margin: 0; color: #374151; font-size: 14px;">📅 יום חמישי, 5 במרץ 2026</p>
-            <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🕢 19:30</p>
-            <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">📍 הכישור 14, חולון</p>
-            <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🚗 חניה: חניון מרכז הסיירים</p>
-            <p style="margin: 10px 0 0 0; color: #007272; font-size: 14px; font-weight: bold;">🎭 קוד לבוש: תחפושות בלבד!</p>
-          </div>
           <p style="color: #9ca3af; font-size: 13px; margin: 20px 0 0 0;">
-            נתראה בקרוב!
+            פרטים מלאים על האירוע ישלחו אליך עם האישור.
           </p>
         </div>
         <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
@@ -88,7 +81,7 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
             <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🕢 19:30</p>
             <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">📍 הכישור 14, חולון</p>
             <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🚗 חניה: חניון מרכז הסיירים</p>
-            <p style="margin: 10px 0 0 0; color: #007272; font-size: 14px; font-weight: bold;">🎭 קוד לבוש: תחפושות בלבד!</p>
+            <p style="margin: 10px 0 0 0; color: #007272; font-size: 14px; font-weight: bold;">🎭 קוד לבוש: תחפושות בלבד</p>
           </div>
         </div>
         <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
