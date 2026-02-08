@@ -76,7 +76,7 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
           <p style="color: #b45309; font-size: 14px; font-weight: bold; margin: 16px 0;">
             ⚠️ שמור את הקוד הזה! תצטרך להציג אותו בכניסה
           </p>
-          <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 20px; border-radius: 4px; margin: 20px 0; text-align: right;">
+          <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 20px; border-radius: 4px; margin: 20px 0; text-align: center;">
             <p style="margin: 0; color: #374151; font-size: 14px;">📅 יום חמישי, 5 במרץ 2026</p>
             <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🕢 19:30</p>
             <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">📍 הכישור 14, חולון</p>
