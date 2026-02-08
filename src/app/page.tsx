@@ -430,7 +430,7 @@ export default function Home() {
             <br />
             רוצים לצרף חברים? דברו איתנו, ובמידה ויתאפשר נשמח לאשר 🩵
           </p>
-          <p className="text-gray-400 text-xs">לבירורים ניתן לפנות לאריק עזריאל במספר <a href="tel:0545243335" className="text-[#007272] hover:text-[#009999] transition">054-524-3335</a></p>
+          <p className="text-gray-400 text-xs">לבירורים ניתן לפנות לאיציק <a href="tel:0502022222" className="text-[#007272] hover:text-[#009999] transition">050-202-2222</a> או לאריק <a href="tel:0545243335" className="text-[#007272] hover:text-[#009999] transition">054-524-3335</a></p>
         </div>
       </div>
     </main>

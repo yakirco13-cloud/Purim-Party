@@ -33,7 +33,7 @@ export async function sendConfirmationEmail(to: string, name: string) {
           </p>
         </div>
         <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
-          <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאריק עזריאל במספר 054-524-3335</p>
+          <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאיציק 050-202-2222 או לאריק 054-524-3335</p>
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
           </div>
         </div>
         <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
-          <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאריק עזריאל במספר 054-524-3335</p>
+          <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאיציק 050-202-2222 או לאריק 054-524-3335</p>
         </div>
       </div>
     </div>
@@ -130,7 +130,7 @@ export async function sendRejectionEmail(to: string, name: string) {
           </p>
         </div>
         <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
-          <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאריק עזריאל במספר 054-524-3335</p>
+          <p style="margin: 0; color: #9ca3af; font-size: 12px;">לבירורים ניתן לפנות לאיציק 050-202-2222 או לאריק 054-524-3335</p>
         </div>
       </div>
     </div>

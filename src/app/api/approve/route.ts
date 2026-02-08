@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     try {
       if (action === 'approve' && previousStatus !== 'approved') {
         await sendApprovalEmail(guest.email, guest.name, guest.qr_token)
-      } else if (action === 'reject' && previousStatus === 'pending') {
+      } else if (action === 'reject' && previousStatus !== 'rejected') {
         await sendRejectionEmail(guest.email, guest.name)
       }
     } catch (emailError) {
