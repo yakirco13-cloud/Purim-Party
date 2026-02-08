@@ -20,7 +20,7 @@ export async function sendConfirmationEmail(to: string, name: string) {
           <h1 style="color: #111827; margin: 0; font-size: 28px; font-weight: 300; letter-spacing: 4px;">LAIYSH</h1>
           <p style="color: #007272; margin: 4px 0 0 0; font-size: 13px; letter-spacing: 5px; text-transform: uppercase;">Group</p>
         </div>
-        <div style="padding: 30px;">
+        <div style="padding: 30px; text-align: center;">
           <h2 style="color: #111827; margin: 0 0 16px 0; font-weight: 300; font-size: 22px;">היי ${name}!</h2>
           <p style="font-size: 15px; line-height: 1.8; color: #4b5563; margin: 0 0 12px 0;">
             קיבלנו את הבקשה שלך להצטרף למסיבת הפורים!
@@ -83,6 +83,9 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
             <p style="margin: 10px 0 0 0; color: #374151; font-size: 14px;">🚗 חניה: חניון מרכז הסיירים</p>
             <p style="margin: 10px 0 0 0; color: #007272; font-size: 14px; font-weight: bold;">🎭 קוד לבוש: תחפושות בלבד</p>
           </div>
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D7%9E%D7%A1%D7%99%D7%91%D7%AA+%D7%A4%D7%95%D7%A8%D7%99%D7%9D+Laiysh+Group&dates=20260305T173000Z/20260306T000000Z&location=%D7%94%D7%9B%D7%99%D7%A9%D7%95%D7%A8+14%2C+%D7%97%D7%95%D7%9C%D7%95%D7%9F&details=%D7%A7%D7%95%D7%93+%D7%9C%D7%91%D7%95%D7%A9%3A+%D7%AA%D7%97%D7%A4%D7%95%D7%A9%D7%95%D7%AA+%D7%91%D7%9C%D7%91%D7%93%0A%D7%97%D7%A0%D7%99%D7%94%3A+%D7%97%D7%A0%D7%99%D7%95%D7%9F+%D7%9E%D7%A8%D7%9B%D7%96+%D7%94%D7%A1%D7%99%D7%99%D7%A8%D7%99%D7%9D" target="_blank" style="display: inline-block; background: #007272; color: #ffffff; padding: 12px 28px; border-radius: 4px; text-decoration: none; font-size: 14px; margin: 20px 0 0 0;">
+            📅 הוסף ליומן
+          </a>
           <div style="background: #f0f9ff; border: 1px solid #bae6fd; padding: 16px; border-radius: 4px; margin: 20px 0 0 0; text-align: center;">
             <p style="margin: 0; color: #4b5563; font-size: 14px; line-height: 1.8;">
               נרשמתם ובסוף לא מסתדר לכם להגיע? הכל בסדר!<br/>נשמח אם תעדכנו אותנו 💙
@@ -120,7 +123,7 @@ export async function sendRejectionEmail(to: string, name: string) {
           <h1 style="color: #111827; margin: 0; font-size: 28px; font-weight: 300; letter-spacing: 4px;">LAIYSH</h1>
           <p style="color: #007272; margin: 4px 0 0 0; font-size: 13px; letter-spacing: 5px; text-transform: uppercase;">Group</p>
         </div>
-        <div style="padding: 30px;">
+        <div style="padding: 30px; text-align: center;">
           <h2 style="color: #111827; margin: 0 0 16px 0; font-weight: 300; font-size: 22px;">היי ${name}</h2>
           <p style="font-size: 15px; line-height: 1.8; color: #4b5563; margin: 0 0 12px 0;">
             לצערנו, לא נוכל לארח אותך הפעם במסיבה.
