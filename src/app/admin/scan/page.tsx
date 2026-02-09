@@ -20,6 +20,7 @@ type PendingGuest = {
   guestCount: number
   status: 'approved' | 'pending' | 'rejected'
   alreadyCheckedIn: boolean
+  checkedInCount: number
 }
 
 export default function ScanPage() {
@@ -95,14 +96,17 @@ export default function ScanPage() {
         setResult({ valid: false, error: data.error })
         setTimeout(() => setResult(null), 3000)
       } else {
+        const checkedInCount = data.guest.checkedInCount || 0
+        const remaining = data.guest.guestCount - checkedInCount
         setPendingGuest({
           qrToken,
           name: data.guest.name,
           guestCount: data.guest.guestCount,
           status: data.guest.status,
-          alreadyCheckedIn: data.guest.checkedIn,
+          alreadyCheckedIn: checkedInCount >= data.guest.guestCount,
+          checkedInCount,
         })
-        setAdjustedCount(data.guest.guestCount)
+        setAdjustedCount(remaining > 0 ? remaining : 1)
       }
     } catch (err) {
       console.error('Lookup error:', err)
@@ -195,9 +199,13 @@ export default function ScanPage() {
               </div>
             </div>
 
-            {pendingGuest.alreadyCheckedIn ? (
+            {pendingGuest.checkedInCount > 0 && pendingGuest.checkedInCount < pendingGuest.guestCount ? (
+              <div className="bg-blue-50 border border-blue-200 rounded-sm p-4 mb-4 text-center">
+                <p className="text-blue-600">נכנסו {pendingGuest.checkedInCount}/{pendingGuest.guestCount}</p>
+              </div>
+            ) : pendingGuest.alreadyCheckedIn ? (
               <div className="bg-yellow-50 border border-yellow-200 rounded-sm p-4 mb-4 text-center">
-                <p className="text-yellow-600">⚠️ האורח כבר נכנס למסיבה</p>
+                <p className="text-yellow-600">⚠️ כל האורחים כבר נכנסו ({pendingGuest.guestCount}/{pendingGuest.guestCount})</p>
               </div>
             ) : pendingGuest.status !== 'approved' ? (
               <div className="bg-red-50 border border-red-200 rounded-sm p-4 mb-4 text-center">

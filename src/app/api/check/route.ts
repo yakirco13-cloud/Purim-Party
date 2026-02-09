@@ -35,10 +35,14 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    if (guest.checked_in) {
+    const previousCheckedIn = guest.checked_in_count || 0
+    const enteringNow = guestCount || guest.guest_count
+    const totalAfter = previousCheckedIn + enteringNow
+
+    if (previousCheckedIn >= guest.guest_count && guest.checked_in) {
       return NextResponse.json({
         valid: false,
-        error: '⚠️ האורח כבר נכנס',
+        error: '⚠️ כל האורחים כבר נכנסו',
         guest: {
           name: guest.name,
           guestCount: guest.guest_count,
@@ -47,13 +51,11 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Mark as checked in (update guest count if admin adjusted it)
+    // Mark as checked in with count
     const updateData: Record<string, unknown> = {
       checked_in: true,
       checked_in_at: new Date().toISOString(),
-    }
-    if (guestCount && guestCount !== guest.guest_count) {
-      updateData.guest_count = guestCount
+      checked_in_count: totalAfter,
     }
     const { error: updateError } = await supabaseAdmin
       .from('guests')
@@ -72,7 +74,9 @@ export async function POST(request: NextRequest) {
       valid: true,
       guest: {
         name: guest.name,
-        guestCount: guestCount || guest.guest_count,
+        guestCount: enteringNow,
+        totalCheckedIn: totalAfter,
+        registeredCount: guest.guest_count,
       },
     })
   } catch (error) {

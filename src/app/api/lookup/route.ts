@@ -32,6 +32,7 @@ export async function POST(request: NextRequest) {
         guestCount: guest.guest_count,
         status: guest.status,
         checkedIn: guest.checked_in,
+        checkedInCount: guest.checked_in_count || 0,
       },
     })
   } catch (error) {
