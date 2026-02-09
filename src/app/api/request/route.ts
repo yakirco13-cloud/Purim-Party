@@ -25,9 +25,9 @@ export async function POST(request: NextRequest) {
 
     if (existing) {
       const statusMessages: Record<string, string> = {
-        pending: 'כבר שלחת בקשה! היא ממתינה לאישור',
-        approved: 'כבר אושרת! בדוק את המייל שלך',
-        rejected: 'הבקשה הקודמת שלך נדחתה',
+        pending: 'כבר נשלחה בקשה! היא ממתינה לאישור',
+        approved: 'הבקשה כבר אושרה! בדקו את המייל',
+        rejected: 'הבקשה הקודמת נדחתה',
       }
       return NextResponse.json(
         { error: statusMessages[existing.status] || 'האימייל הזה כבר קיים במערכת' },
