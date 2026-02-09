@@ -268,12 +268,12 @@ export default function Home() {
           <h1 className="text-2xl font-light text-gray-900 mb-4 tracking-wide">הבקשה נשלחה בהצלחה</h1>
           <div className="w-16 h-px bg-[#007272] mx-auto mb-6"></div>
           <p className="text-gray-500 mb-4 leading-relaxed">
-            שלחנו לך מייל אישור. ברגע שהבקשה תאושר, תקבל מייל נוסף עם QR code.
+            שלחנו מייל אישור. ברגע שהבקשה תאושר, יישלח מייל נוסף עם QR code.
           </p>
           <div className="bg-amber-50 border border-amber-200 rounded-sm p-3 mb-4 text-amber-700 text-sm">
-            שים לב — שליחת הבקשה אינה מהווה אישור השתתפות. תקבל מייל נפרד במידה ותאושר.
+            שימו לב — שליחת הבקשה אינה מהווה אישור השתתפות. תקבלו מייל נפרד במידה ותאושרו.
           </div>
-          <p className="text-[#007272] text-sm">בדוק גם בתיקיית הספאם 📧</p>
+          <p className="text-[#007272] text-sm">בדקו גם בתיקיית הספאם 📧</p>
         </div>
       </main>
     )
@@ -330,7 +330,7 @@ export default function Home() {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 text-gray-900 focus:outline-none focus:border-[#007272] transition placeholder-gray-300"
-              placeholder="הכנס את שמך המלא"
+              placeholder="השם המלא שלך"
             />
           </div>
 
@@ -368,7 +368,7 @@ export default function Home() {
               value={formData.relation}
               onChange={(e) => setFormData({ ...formData, relation: e.target.value })}
               className="w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 text-gray-900 focus:outline-none focus:border-[#007272] transition placeholder-gray-300"
-              placeholder="לדוגמה: משפחה, חברים, עובד"
+              placeholder="לדוגמה: משפחה, חברים, עובד/ת"
             />
           </div>
 
@@ -419,7 +419,7 @@ export default function Home() {
             disabled={status === 'loading'}
             className="w-full bg-[#007272] hover:bg-[#008888] text-white font-medium py-4 rounded-sm transition disabled:opacity-50 disabled:cursor-not-allowed tracking-wider uppercase text-sm"
           >
-            {status === 'loading' ? 'שולח...' : 'שלח בקשה להשתתפות'}
+            {status === 'loading' ? 'שולח...' : 'שליחת בקשה להשתתפות'}
           </button>
         </form>
 

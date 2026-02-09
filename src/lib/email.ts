@@ -26,7 +26,7 @@ export async function sendConfirmationEmail(to: string, name: string) {
             קיבלנו את הבקשה שלך להצטרף למסיבת הפורים!
           </p>
           <p style="font-size: 15px; line-height: 1.8; color: #4b5563; margin: 0 0 20px 0;">
-            הבקשה שלך ממתינה לאישור. נשלח לך מייל נוסף עם QR code ברגע שתאושר.
+            הבקשה ממתינה לאישור. נשלח מייל נוסף עם QR code ברגע שהבקשה תאושר.
           </p>
           <p style="color: #9ca3af; font-size: 13px; margin: 20px 0 0 0;">
             פרטים מלאים על האירוע ישלחו אליך עם האישור.
@@ -66,7 +66,7 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
           <p style="color: #007272; margin: 4px 0 0 0; font-size: 13px; letter-spacing: 5px; text-transform: uppercase;">Group</p>
         </div>
         <div style="padding: 30px; text-align: center;">
-          <h2 style="color: #007272; margin: 0 0 16px 0; font-weight: 400; font-size: 22px;">${name}, אושרת!</h2>
+          <h2 style="color: #007272; margin: 0 0 16px 0; font-weight: 400; font-size: 22px;">${name}, ההרשמה אושרה!</h2>
           <p style="font-size: 16px; line-height: 1.8; color: #4b5563; margin: 0 0 20px 0;">
             הבקשה שלך אושרה! נתראה במסיבה
           </p>
@@ -74,7 +74,7 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
             <img src="cid:qrcode" alt="QR Code" style="width: 200px; height: 200px;" />
           </div>
           <p style="color: #b45309; font-size: 14px; font-weight: bold; margin: 16px 0;">
-            ⚠️ שמור את הקוד הזה! תצטרך להציג אותו בכניסה
+            ⚠️ שמרו את הקוד הזה! יש להציג אותו בכניסה
           </p>
           <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 20px; border-radius: 4px; margin: 20px 0; text-align: center;">
             <p style="margin: 0; color: #374151; font-size: 14px;">📅 יום חמישי, 5 במרץ 2026</p>
@@ -102,7 +102,7 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
   await transporter.sendMail({
     from: `"מסיבת פורים - Laiysh Group" <${process.env.EMAIL_FROM}>`,
     to,
-    subject: 'אושרת! הנה ה-QR שלך - מסיבת פורים Laiysh Group',
+    subject: 'ההרשמה אושרה! הנה ה-QR שלכם - מסיבת פורים Laiysh Group',
     html,
     attachments: [
       {
@@ -129,7 +129,7 @@ export async function sendRejectionEmail(to: string, name: string) {
             לצערנו, לא נוכל לארח אותך הפעם במסיבה.
           </p>
           <p style="font-size: 15px; line-height: 1.8; color: #9ca3af; margin: 0;">
-            מקווים לראותך באירועים הבאים!
+            מקווים לראות אותך באירועים הבאים!
           </p>
         </div>
         <div style="padding: 16px 30px; border-top: 1px solid #e5e7eb; text-align: center;">
