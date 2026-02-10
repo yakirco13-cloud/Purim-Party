@@ -6,7 +6,7 @@ import crypto from 'crypto'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, phone, guestCount, note } = body
+    const { name, email, phone, relation, guestCount, note } = body
 
     // Validate required fields
     if (!name || !email || !phone) {
@@ -45,6 +45,7 @@ export async function POST(request: NextRequest) {
       phone,
       guest_count: parseInt(guestCount) || 1,
       note: note || null,
+      relation: relation || null,
       qr_token: qrToken,
       status: 'pending',
       checked_in: false,

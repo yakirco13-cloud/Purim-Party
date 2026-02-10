@@ -11,6 +11,7 @@ type Guest = {
   phone: string
   guest_count: number
   note: string | null
+  relation: string | null
   status: 'pending' | 'approved' | 'rejected'
   checked_in: boolean
   created_at: string
@@ -281,6 +282,9 @@ export default function AdminPage() {
                     <span>•</span>
                     <span>{guest.phone}</span>
                   </div>
+                  {guest.relation && (
+                    <div className="text-gray-400 text-sm mt-1">🔗 {guest.relation}</div>
+                  )}
                   {guest.note && (
                     <div className="text-gray-400 text-sm mt-1">💬 {guest.note}</div>
                   )}
