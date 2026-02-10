@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     // Send email only when newly approving (not when changing from approved to rejected)
     try {
       if (action === 'approve' && previousStatus !== 'approved') {
-        await sendApprovalEmail(guest.email, guest.name, guest.qr_token)
+        await sendApprovalEmail(guest.email, guest.name, guest.qr_token, guest.guest_count)
       } else if (action === 'reject' && previousStatus !== 'rejected') {
         await sendRejectionEmail(guest.email, guest.name)
       }

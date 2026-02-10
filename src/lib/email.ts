@@ -47,7 +47,7 @@ export async function sendConfirmationEmail(to: string, name: string) {
   })
 }
 
-export async function sendApprovalEmail(to: string, name: string, qrToken: string) {
+export async function sendApprovalEmail(to: string, name: string, qrToken: string, guestCount: number = 1) {
   const qrCodeBuffer = await QRCode.toBuffer(qrToken, {
     width: 300,
     margin: 2,
@@ -69,6 +69,9 @@ export async function sendApprovalEmail(to: string, name: string, qrToken: strin
           <h2 style="color: #007272; margin: 0 0 16px 0; font-weight: 400; font-size: 22px;">${name}, ההרשמה אושרה!</h2>
           <p style="font-size: 16px; line-height: 1.8; color: #4b5563; margin: 0 0 20px 0;">
             הבקשה שלך אושרה! נתראה במסיבה
+          </p>
+          <p style="font-size: 15px; line-height: 1.8; color: #374151; margin: 0 0 20px 0; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 10px 16px; border-radius: 4px;">
+            👥 מספר אורחים: <strong>${guestCount}</strong>
           </p>
           <div style="background: #f9fafb; padding: 24px; border-radius: 4px; margin: 20px auto; display: inline-block; border: 1px solid #e5e7eb;">
             <img src="cid:qrcode" alt="QR Code" style="width: 200px; height: 200px;" />
