@@ -102,14 +102,10 @@ export default function AdminPage() {
   )
 
   const stats = {
-    total: guests.length,
-    pending: guests.filter((g) => g.status === 'pending').length,
-    approved: guests.filter((g) => g.status === 'approved').length,
-    rejected: guests.filter((g) => g.status === 'rejected').length,
+    totalPeople: guests.reduce((sum, g) => sum + g.guest_count, 0),
+    pendingPeople: guests.filter((g) => g.status === 'pending').reduce((sum, g) => sum + g.guest_count, 0),
+    approvedPeople: guests.filter((g) => g.status === 'approved').reduce((sum, g) => sum + g.guest_count, 0),
     checkedIn: guests.filter((g) => g.checked_in).length,
-    totalPeople: guests
-      .filter((g) => g.status === 'approved')
-      .reduce((sum, g) => sum + g.guest_count, 0),
   }
 
   if (loading) {
@@ -204,22 +200,18 @@ export default function AdminPage() {
 
       <main className="max-w-6xl mx-auto px-4 py-6">
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
           <div className="bg-white border border-gray-200 rounded-sm p-4 text-center shadow-sm">
-            <div className="text-2xl font-light text-gray-900">{stats.total}</div>
-            <div className="text-gray-400 text-xs tracking-wider uppercase">סה״כ בקשות</div>
+            <div className="text-2xl font-light text-gray-900">{stats.totalPeople}</div>
+            <div className="text-gray-400 text-xs tracking-wider uppercase">סה״כ אנשים</div>
           </div>
           <div className="bg-white border border-yellow-200 rounded-sm p-4 text-center shadow-sm">
-            <div className="text-2xl font-light text-yellow-600">{stats.pending}</div>
+            <div className="text-2xl font-light text-yellow-600">{stats.pendingPeople}</div>
             <div className="text-gray-400 text-xs tracking-wider uppercase">ממתינים</div>
           </div>
           <div className="bg-white border border-green-200 rounded-sm p-4 text-center shadow-sm">
-            <div className="text-2xl font-light text-green-600">{stats.approved}</div>
+            <div className="text-2xl font-light text-green-600">{stats.approvedPeople}</div>
             <div className="text-gray-400 text-xs tracking-wider uppercase">אושרו</div>
-          </div>
-          <div className="bg-white border border-[#007272]/30 rounded-sm p-4 text-center shadow-sm">
-            <div className="text-2xl font-light text-[#007272]">{stats.totalPeople}</div>
-            <div className="text-gray-400 text-xs tracking-wider uppercase">סה״כ אנשים</div>
           </div>
           <div className="bg-white border border-blue-200 rounded-sm p-4 text-center shadow-sm">
             <div className="text-2xl font-light text-blue-500">{stats.checkedIn}</div>
