@@ -27,6 +27,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
   const [editingGuest, setEditingGuest] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
   const [confirmDialog, setConfirmDialog] = useState<{ guestId: string; guestName: string; action: 'approve' | 'reject' } | null>(null)
 
   useEffect(() => {
@@ -97,9 +98,11 @@ export default function AdminPage() {
     setActionLoading(null)
   }
 
-  const filteredGuests = guests.filter((g) =>
-    filter === 'all' ? true : g.status === filter
-  )
+  const filteredGuests = guests.filter((g) => {
+    const matchesFilter = filter === 'all' ? true : g.status === filter
+    const matchesSearch = search === '' || g.name.toLowerCase().includes(search.toLowerCase())
+    return matchesFilter && matchesSearch
+  })
 
   const stats = {
     totalPeople: guests.reduce((sum, g) => sum + g.guest_count, 0),
@@ -243,6 +246,17 @@ export default function AdminPage() {
           >
             רענן
           </button>
+        </div>
+
+        {/* Search */}
+        <div className="mb-4">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="חיפוש לפי שם..."
+            className="w-full bg-white border border-gray-200 rounded-sm px-4 py-3 text-gray-900 focus:outline-none focus:border-[#007272] transition placeholder-gray-300 text-sm"
+          />
         </div>
 
         {/* Guest List */}
